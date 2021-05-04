@@ -1,0 +1,37 @@
+.App {
+    margin: 50px auto;
+
+    width: 500px;
+
+    border: 3px solid rgb(255, 255, 255);
+    border-radius: 15px;
+
+    background-color: rgb(160, 160, 160);
+
+    text-align: center;
+}
+
+.Title {
+    padding: 30px;
+
+    font-weight: 700;
+    line-height: 3px;
+    font-size: 25px;
+}
+
+.Empty {
+    display: inline-block;
+
+    padding: 4px 20px 7px;
+    margin-bottom: 30px;
+
+    font-weight: 700;
+    line-height: 40px;
+    font-size: 22px;
+
+    background-color: azure;
+    color: rgb(1, 50, 124);
+   
+    border: 1px solid rgb(1, 50, 124);
+    border-radius: 10px;
+}
