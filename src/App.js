@@ -1,122 +1,32 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import shortid from 'shortid';
-
+import { getVisibleContacts } from './Redux/phonebook-selectors';
 import ContactForm from './Components/ContactForm';
-import ContactList from './Components/ContactList';
 import Filter from './Components/Filter';
-import ContactListItem from './Components/ContactListItem';
+import ContactList from './Components/ContactList';
+import { useSelector } from 'react-redux';
 
 import 'modern-normalize/modern-normalize.css';
 import './App.scss';
 
-class App extends Component {
-  static propTypes = {
-    contacts: PropTypes.array,
-    filter: PropTypes.number,
-  };
+export default function App() {
+  const contacts = useSelector(getVisibleContacts);
+  const totalContactsCount = contacts.length;
 
-  state = {
-    contacts: [
-      { id: shortid.generate(), name: 'Rosie Simpson', number: '459-12-56' },
-      { id: shortid.generate(), name: 'Hermione Kline', number: '443-89-12' },
-      { id: shortid.generate(), name: 'Eden Clements', number: '645-17-79' },
-      { id: shortid.generate(), name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
-  };
-
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts});
-    }
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState);
-    console.log(this.state);
-
-    if (this.state.contacts !== prevState.contacts){
-      console.log('Contacts are updated')
-
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    }
-
-  }
-
-
-  changeFilter = event => {
-    this.setState({ filter: event.currentTarget.value });
-  };
-
-  getVisibleContacts = () => {
-    const { filter, contacts } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
-  };
-
-  addContact = (name, number) => {
-    const { contacts } = this.state;
-    const contact = {
-      id: shortid.generate(),
-      name,
-      number,
-    };
-
-    if (
-      contacts.some(
-        contact => contact.name === name || contact.number === number,
-      )
-    ) {
-      alert(`${name} is already in contacts.`);
-      return;
-    }
-
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-    }));
-  };
-
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
-  };
-
-  render() {
-    const { filter, contacts } = this.state;
-
-    return (
-      <div className="App">
-        <h2 className="Title">Phonebook</h2>
-        <ContactForm submit={this.addContact} contacts={contacts} />
-        <h2 className="Title">Contacts</h2>
-
-        {contacts.length > 0 ? (
-          <>
-            <Filter filter={filter} changeFilter={this.changeFilter} />
-
-            <ContactList>
-              <ContactListItem
-                contacts={this.getVisibleContacts()}
-                onDeleteContact={this.deleteContact}
-              />
-            </ContactList>
-          </>
-        ) : (
-          <span className="Empty">Your phonebook is empty</span>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <h2 className="Title">Phonebook</h2>
+      <ContactForm />
+      <h2 className="Title">Total contacts: {totalContactsCount}</h2>
+      <Filter />
+      {contacts.length > 0 ? (
+        <>
+          <ContactList />
+        </>
+      ) : (
+        <span className="Empty">Your phonebook is empty or you have no such contact</span>
+      )}
+    </div>
+  );
 }
 
 App.propTypes = {
@@ -129,5 +39,3 @@ App.propTypes = {
     }),
   ),
 };
-
-export default App;

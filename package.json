@@ -2,16 +2,18 @@
   "name": "goit-react-hw-03-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://GromovVv.github.io/goit-react-hw-03-phonebook",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
-    "gh-pages": "^3.1.0",
-    "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "shortid": "^2.2.16",
     "web-vitals": "^1.1.1"
   },
@@ -42,9 +44,17 @@
     ]
   },
   "devDependencies": {
+    "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "eslint": "^7.27.0",
+    "gh-pages": "^3.2.0",
+    "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "modern-normalize": "^1.0.0",
-    "prettier": "^2.2.1"
+    "modern-normalize": "^1.1.0",
+    "node-sass": "^5.0.0",
+    "prettier": "^2.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-toastify": "^7.0.4",
+    "redux-devtools-extension": "^2.13.9"
   }
 }
