@@ -27,6 +27,29 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts});
+    }
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevState);
+    console.log(this.state);
+
+    if (this.state.contacts !== prevState.contacts){
+      console.log('Contacts are updated')
+
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    }
+
+  }
+
+
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
